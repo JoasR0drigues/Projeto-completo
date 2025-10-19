@@ -1,0 +1,18 @@
+<div class="container">
+
+    <h3> Detalhes do Aluno</h3>
+    <br>
+
+    <div><label> <b>Código: </b></label> {{ aluno.codigo }}</div>
+    <div><label> <b>Nome: </b></label> {{ aluno.nome }}</div>
+    <div><label> <b>Curso: </b></label> {{ aluno.curso }}</div>
+    <div><label> <b>Semestre: </b></label> {{ aluno.semestre }}</div>
+    <div><label> <b>Data de Matrícula: </b></label> {{ aluno.dataMatricula | date: 'dd/MM/yyyy'}}</div>
+    <div><label> <b>Mensalidade: </b></label> {{ aluno.mensalidade | currency:'BRL' }}</div>
+    <div><label> <b>Bolsista: </b></label> {{ aluno.bolsista ? 'Sim' : 'Não'}}</div>
+
+    <br>
+    <br>
+
+    <div> <button (click)="retornar()" class="btn btn-success" style="margin-left: 10px"> Voltar </button></div>
+</div>

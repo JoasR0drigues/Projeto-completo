@@ -1,0 +1,61 @@
+<div class="container">
+    <br>
+    <h3>Inserir Aluno</h3>
+    <br>
+    <form (ngSubmit)="onSubmit()">
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="aluno.nome">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Curso</label>
+                <input type="text" class="form-control" id="curso" name="curso" [(ngModel)]="aluno.curso">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Data de Matrícula</label>
+                <input type="date" class="form-control" id="dataMatricula" name="dataMatricula"
+                    [(ngModel)]="aluno.dataMatricula">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Mensalidade</label>
+                <input type="number" step="0.01" class="form-control" id="mensalidade" name="mensalidade"
+                    [(ngModel)]="aluno.mensalidade">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Semestre</label>
+                <input type="number" min="1" max="10" class="form-control" id="semestre" name="semestre"
+                    [(ngModel)]="aluno.semestre">
+            </div>
+        </div>
+        <br>
+        <div>
+            <div class="form-check">
+                <label class="form-check-label">Bolsista</label>
+                <input type="checkbox" class="form-check-input" id="bolsista" name="bolsista"
+                    [(ngModel)]="aluno.bolsista">
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <div class="col-4">
+                <button class="btn btn-info" type="submit">Salvar</button>
+                <button (click)="retornar()" class="btn btn-success" style="margin-left: 10px"> Voltar</button>
+            </div>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,69 @@
+<div class="container mt-3">
+  <h2>{{ titulo }}</h2>
+  <div *ngIf="erro" class="alert alert-danger mt-2">{{erro}}</div>
+
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="row g-3 mt-2">
+    <div class="col-md-2" *ngIf="idEdicao">
+      <label class="form-label">Código</label>
+      <input class="form-control" formControlName="codigo" [readonly]="true">
+
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Nome</label>
+      <input class="form-control" formControlName="nome" required>
+      <div *ngIf="form.get('nome')?.invalid && form.get('nome')?.touched" class="text-danger">
+        <small *ngIf="form.get('nome')?.errors?.['required']">Nome é obrigatório</small>
+        <small *ngIf="form.get('nome')?.errors?.['minlength']">Nome deve ter pelo menos 2 caracteres</small>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Curso</label>
+      <input class="form-control" formControlName="curso" required>
+      <div *ngIf="form.get('curso')?.invalid && form.get('curso')?.touched" class="text-danger">
+        <small *ngIf="form.get('curso')?.errors?.['required']">Curso é obrigatório</small>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Data de Matrícula</label>
+      <input type="date" class="form-control" formControlName="dataMatricula" required>
+      <div *ngIf="form.get('dataMatricula')?.invalid && form.get('dataMatricula')?.touched" class="text-danger">
+        <small *ngIf="form.get('dataMatricula')?.errors?.['required']">Data de matrícula é obrigatória</small>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <label class="form-label">Mensalidade</label>
+      <input type="number" step="0.01" class="form-control" formControlName="mensalidade" required>
+      <div *ngIf="form.get('mensalidade')?.invalid && form.get('mensalidade')?.touched" class="text-danger">
+        <small *ngIf="form.get('mensalidade')?.errors?.['required']">Mensalidade é obrigatória</small>
+        <small *ngIf="form.get('mensalidade')?.errors?.['min']">Mensalidade deve ser maior que zero</small>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <label class="form-label">Semestre</label>
+      <input type="number" min="1" max="10" class="form-control" formControlName="semestre" required>
+      <div *ngIf="form.get('semestre')?.invalid && form.get('semestre')?.touched" class="text-danger">
+        <small *ngIf="form.get('semestre')?.errors?.['required']">Semestre é obrigatório</small>
+        <small *ngIf="form.get('semestre')?.errors?.['min']">Semestre deve ser maior que zero</small>
+        <small *ngIf="form.get('semestre')?.errors?.['max']">Semestre deve ser menor que 11</small>
+      </div>
+    </div>
+
+    <div class="col-md-2 form-check mt-4 ms-2">
+      <input class="form-check-input" type="checkbox" id="bolsista" formControlName="bolsista">
+      <label class="form-check-label" for="bolsista">Bolsista</label>
+    </div>
+
+    <div class="col-12 d-flex gap-2">
+      <button class="btn btn-success" [disabled]="salvando || form.invalid">
+        <span *ngIf="salvando" class="spinner-border spinner-border-sm me-2"></span>
+        {{ salvando ? 'Salvando...' : 'Salvar' }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="cancelar()" [disabled]="salvando">Cancelar</button>
+    </div>
+  </form>
+</div>
