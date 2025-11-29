@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AlunoService } from '../../service/aluno.service';
 import { Aluno } from '../../model/aluno';
+import { CURSOS_SUKATECH } from '../../shared/constants/cursos.const';
+import { CURSOS_INFO } from '../../shared/constants/cursos-info';
 
 @Component({
   selector: 'app-inicio',
@@ -19,6 +21,8 @@ export class InicioComponent implements OnInit {
   mensalidadeMedia = 0;
   alunosRecentes: Aluno[] = [];
   dataAtualizacao = new Date();
+  readonly cursosDisponiveis = CURSOS_SUKATECH;
+  readonly cursosDetalhados = CURSOS_INFO;
 
   constructor(private alunoService: AlunoService) {}
 
@@ -33,8 +37,7 @@ export class InicioComponent implements OnInit {
         this.totalBolsistas = alunos.filter(a => a.bolsista).length;
         
         // Calcular cursos únicos
-        const cursosUnicos = new Set(alunos.map(a => a.curso));
-        this.totalCursos = cursosUnicos.size;
+        this.totalCursos = this.cursosDisponiveis.length;
         
         // Calcular mensalidade média
         if (alunos.length > 0) {
@@ -52,4 +55,5 @@ export class InicioComponent implements OnInit {
       }
     });
   }
+
 }

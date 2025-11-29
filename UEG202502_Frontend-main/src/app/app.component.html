@@ -1,19 +1,22 @@
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <ul class="navbar-nav">
-      <li class="nav-item">
-          <a routerLink="inicio" routerLinkActive="active" class="nav-link">Home</a>
-      </li>
+<nav class="navbar navbar-expand-sm navbar-dark sukatech-navbar">
+  <div class="container-fluid">
+    <a routerLink="inicio" class="navbar-brand fw-bold text-uppercase">Sukatech</a>
+    <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+            <a routerLink="inicio" routerLinkActive="active" class="nav-link">Início</a>
+        </li>
 
-      <li class="nav-item">
-          <a routerLink="aluno-lista" routerLinkActive="active" class="nav-link">Alunos</a>
-      </li>
-  </ul>
+        <li class="nav-item">
+            <a routerLink="aluno-lista" routerLinkActive="active" class="nav-link">Alunos</a>
+        </li>
+    </ul>
+  </div>
 </nav>
 
 <router-outlet></router-outlet>
 
 <footer class="footer">
   <div class="container">
-      <span>Sistema de Gestão de Alunos - V1.0</span>
+      <span>Sukatech • Plataforma Educacional</span>
   </div>
 </footer>

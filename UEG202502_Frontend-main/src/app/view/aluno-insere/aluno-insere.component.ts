@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Aluno } from '../../model/aluno';
 import { AlunoService } from '../../service/aluno.service';
+import { CURSOS_SUKATECH } from '../../shared/constants/cursos.const';
 
 @Component({
   selector: 'app-aluno-insere',
@@ -12,6 +13,7 @@ import { AlunoService } from '../../service/aluno.service';
 export class AlunoInsereComponent {
 
   aluno: Aluno = new Aluno();
+  readonly cursos = CURSOS_SUKATECH;
 
   constructor(private alunoService: AlunoService, private router: Router){}
 

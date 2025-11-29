@@ -1,9 +1,126 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
-.footer {    position: absolute;    
-bottom: 0;    
-width:100%;   
- height: 40px;   
- background-color: rgba(37, 102, 223, 0.397);    
-text-align: center;    
-color: white;}
+:root {
+  --sukatech-primary: #0a7a3a;
+  --sukatech-secondary: #065c2d;
+  --sukatech-accent: #9fe2b1;
+  --sukatech-background: #f4fff6;
+}
+
+body {
+  background-color: var(--sukatech-background);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #033219;
+}
+
+.sukatech-navbar,
+.bg-primary {
+  background-color: var(--sukatech-primary) !important;
+  border: none;
+}
+
+.sukatech-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+.sukatech-navbar .navbar-brand {
+  letter-spacing: 0.08em;
+}
+
+.sukatech-navbar .nav-link.active,
+.sukatech-navbar .nav-link:hover {
+  color: var(--sukatech-accent);
+}
+
+.btn-primary,
+.btn-success,
+.btn-info {
+  background-color: var(--sukatech-primary) !important;
+  border-color: var(--sukatech-primary) !important;
+}
+
+.btn-secondary {
+  background-color: var(--sukatech-secondary) !important;
+  border-color: var(--sukatech-secondary) !important;
+}
+
+.btn-primary:hover,
+.btn-success:hover,
+.btn-info:hover,
+.btn-secondary:hover {
+  background-color: var(--sukatech-secondary) !important;
+  border-color: var(--sukatech-secondary) !important;
+}
+
+.text-primary,
+.text-info {
+  color: var(--sukatech-primary) !important;
+}
+
+.badge.bg-success,
+.badge.bg-secondary {
+  background-color: var(--sukatech-primary) !important;
+}
+
+.card,
+.table {
+  border: 1px solid rgba(6, 96, 48, 0.12);
+  border-radius: 12px;
+}
+
+.table thead {
+  background-color: var(--sukatech-primary);
+  color: #fff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(159, 226, 177, 0.25);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--sukatech-primary);
+  box-shadow: 0 0 0 0.2rem rgba(14, 194, 84, 0.2);
+}
+
+.form-check-input:checked {
+  background-color: var(--sukatech-primary);
+  border-color: var(--sukatech-primary);
+}
+
+.nav-link,
+a {
+  color: var(--sukatech-primary);
+}
+
+.nav-link:hover,
+a:hover {
+  color: var(--sukatech-secondary);
+}
+
+.hero-section {
+  background: linear-gradient(120deg, var(--sukatech-primary), var(--sukatech-secondary));
+}
+
+.curso-card {
+  border-top: 4px solid var(--sukatech-primary);
+}
+
+.sukatech-logo {
+  max-width: 240px;
+}
+
+.mini-logo {
+  width: 32px;
+  height: 32px;
+}
+
+.footer {
+  width: 100%;
+  background-color: var(--sukatech-secondary);
+  text-align: center;
+  color: white;
+  padding: 12px 0;
+  margin-top: 48px;
+}

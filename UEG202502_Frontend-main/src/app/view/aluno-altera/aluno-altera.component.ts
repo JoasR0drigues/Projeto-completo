@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Aluno } from '../../model/aluno';
 import { AlunoService } from '../../service/aluno.service';
+import { CURSOS_SUKATECH } from '../../shared/constants/cursos.const';
 
 @Component({
   selector: 'app-aluno-altera',
@@ -13,6 +14,7 @@ export class AlunoAlteraComponent implements OnInit {
 
   codigo!: number;
   aluno!: Aluno;
+  readonly cursos = CURSOS_SUKATECH;
 
   constructor(private alunoService: AlunoService,
     private router: Router,

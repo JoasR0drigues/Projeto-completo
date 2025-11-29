@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Aluno } from '../../model/aluno';
 import { AlunoService } from '../../service/aluno.service';
+import { CURSOS_SUKATECH } from '../../shared/constants/cursos.const';
 
 @Component({
   selector: 'app-aluno-lista',
@@ -26,7 +27,7 @@ export class AlunoListaComponent implements OnInit {
   filtroBolsista = '';
 
   // Listas para filtros
-  cursos: string[] = [];
+  cursos: string[] = CURSOS_SUKATECH;
   semestres: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   // Estatísticas
@@ -35,8 +36,11 @@ export class AlunoListaComponent implements OnInit {
   }
 
   get cursosUnicos(): number {
-    const cursosUnicos = new Set(this.alunos.map(a => a.curso));
-    return cursosUnicos.size;
+    const cursosCatalogo = new Set(CURSOS_SUKATECH);
+    const cursosNaBase = new Set(
+      this.alunos.map(a => a.curso).filter(curso => cursosCatalogo.has(curso))
+    );
+    return cursosNaBase.size;
   }
 
   get mensalidadeMedia(): number {
@@ -73,8 +77,8 @@ export class AlunoListaComponent implements OnInit {
   }
 
   extrairCursos(): void {
-    const cursosUnicos = new Set(this.alunos.map(a => a.curso));
-    this.cursos = Array.from(cursosUnicos).sort();
+    // Mantido para compatibilidade, mas agora os cursos são controlados pelo catálogo Sukatech.
+    this.cursos = CURSOS_SUKATECH;
   }
 
   aplicarFiltros(): void {

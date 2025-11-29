@@ -22,7 +22,10 @@
         <div class="form-group row">
             <div class="col-4">
                 <label>Curso</label>
-                <input type="text" class="form-control" id="curso" name="curso" [(ngModel)]="aluno.curso">
+                <select class="form-control" id="curso" name="curso" [(ngModel)]="aluno.curso">
+                    <option value="" disabled [selected]="!aluno.curso">Selecione um curso</option>
+                    <option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</option>
+                </select>
             </div>
         </div>
 

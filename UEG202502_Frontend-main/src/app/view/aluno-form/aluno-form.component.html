@@ -20,7 +20,12 @@
 
     <div class="col-md-4">
       <label class="form-label">Curso</label>
-      <input class="form-control" formControlName="curso" required>
+      <select class="form-select" formControlName="curso" required>
+        <option value="">Selecione um curso</option>
+        <option *ngFor="let curso of cursosDisponiveis" [value]="curso">
+          {{ curso }}
+        </option>
+      </select>
       <div *ngIf="form.get('curso')?.invalid && form.get('curso')?.touched" class="text-danger">
         <small *ngIf="form.get('curso')?.errors?.['required']">Curso é obrigatório</small>
       </div>

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Aluno } from '../../model/aluno';
 import { AlunoService } from '../../service/aluno.service';
+import { CURSOS_SUKATECH } from '../../shared/constants/cursos.const';
 
 @Component({
   selector: 'app-aluno-form',
@@ -19,6 +20,7 @@ export class AlunoFormComponent implements OnInit {
   idEdicao?: number;
   salvando = false;
   erro = '';
+  readonly cursosDisponiveis = CURSOS_SUKATECH;
 
   constructor(
     private fb: FormBuilder,
@@ -31,7 +33,7 @@ export class AlunoFormComponent implements OnInit {
     this.form = this.fb.group({
       codigo: [{value: '', disabled: true}],
       nome: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
-      curso: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      curso: ['', [Validators.required]],
       dataMatricula: ['', [Validators.required]],
       mensalidade: [0, [Validators.required, Validators.min(0.01)]],
       bolsista: [false],

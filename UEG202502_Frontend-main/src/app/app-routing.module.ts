@@ -7,10 +7,12 @@ import { AlunoFormComponent } from './view/aluno-form/aluno-form.component';
 import { AlunoInsereComponent } from './view/aluno-insere/aluno-insere.component';
 import { AlunoAlteraComponent } from './view/aluno-altera/aluno-altera.component';
 import { AlunoConsultaComponent } from './view/aluno-consulta/aluno-consulta.component';
+import { CursoDetalheComponent } from './view/curso-detalhe/curso-detalhe.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'inicio', pathMatch: 'full'},
   {path: 'inicio', component: InicioComponent},
+  {path: 'cursos/:slug', component: CursoDetalheComponent},
   
   // Rotas para alunos
   {path: 'alunos', component: AlunoListaComponent},

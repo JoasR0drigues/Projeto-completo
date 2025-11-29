@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AlunoListaComponent } from './aluno-lista.component';
 import { AlunoService } from '../../service/aluno.service';
 import { Aluno } from '../../model/aluno';
+import { CURSOS_SUKATECH } from '../../shared/constants/cursos.const';
 
 describe('AlunoListaComponent', () => {
   let component: AlunoListaComponent;
@@ -17,7 +18,7 @@ describe('AlunoListaComponent', () => {
     {
       codigo: 1,
       nome: 'João Silva',
-      curso: 'Ciência da Computação',
+      curso: 'Manutenção de Computadores e Celulares',
       dataMatricula: new Date('2024-01-15'),
       mensalidade: 1200,
       bolsista: true,
@@ -26,7 +27,7 @@ describe('AlunoListaComponent', () => {
     {
       codigo: 2,
       nome: 'Maria Santos',
-      curso: 'Engenharia',
+      curso: 'Excel Avançado',
       dataMatricula: new Date('2024-02-20'),
       mensalidade: 1500,
       bolsista: false,
@@ -35,7 +36,7 @@ describe('AlunoListaComponent', () => {
     {
       codigo: 3,
       nome: 'Pedro Costa',
-      curso: 'Ciência da Computação',
+      curso: 'Marketing Digital',
       dataMatricula: new Date('2024-03-10'),
       mensalidade: 1000,
       bolsista: true,
@@ -90,7 +91,7 @@ describe('AlunoListaComponent', () => {
     component.alunos = mockAlunos;
     component.extrairCursos();
 
-    expect(component.cursos).toEqual(['Ciência da Computação', 'Engenharia']);
+    expect(component.cursos).toEqual(CURSOS_SUKATECH);
   });
 
   it('should filter alunos by name', () => {
@@ -107,12 +108,12 @@ describe('AlunoListaComponent', () => {
   it('should filter alunos by curso', () => {
     component.alunos = mockAlunos;
     component.alunosFiltrados = [...mockAlunos];
-    component.filtroCurso = 'Ciência da Computação';
+    component.filtroCurso = 'Manutenção de Computadores e Celulares';
 
     component.aplicarFiltros();
 
-    expect(component.alunosFiltrados.length).toBe(2);
-    expect(component.alunosFiltrados.every(a => a.curso === 'Ciência da Computação')).toBeTrue();
+    expect(component.alunosFiltrados.length).toBe(1);
+    expect(component.alunosFiltrados.every(a => a.curso === 'Manutenção de Computadores e Celulares')).toBeTrue();
   });
 
   it('should filter alunos by semestre', () => {
@@ -202,7 +203,7 @@ describe('AlunoListaComponent', () => {
   it('should calculate unique cursos count correctly', () => {
     component.alunos = mockAlunos;
 
-    expect(component.cursosUnicos).toBe(2);
+    expect(component.cursosUnicos).toBe(3);
   });
 
   it('should calculate average mensalidade correctly', () => {
@@ -239,7 +240,7 @@ describe('AlunoListaComponent', () => {
     const aluno: Aluno = {
       codigo: 1,
       nome: 'Test',
-      curso: 'Test',
+      curso: 'Informática Básica',
       dataMatricula: new Date(),
       mensalidade: 1000,
       bolsista: true,
@@ -254,7 +255,7 @@ describe('AlunoListaComponent', () => {
     const aluno: Aluno = {
       codigo: 1,
       nome: 'Test',
-      curso: 'Test',
+      curso: 'Informática Básica',
       dataMatricula: new Date(),
       mensalidade: 1000,
       bolsista: false,

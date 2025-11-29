@@ -1,0 +1,161 @@
+.curso-detalhe {
+  background: var(--sukatech-background);
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+.curso-hero {
+  position: relative;
+  background: linear-gradient(135deg, #0c9b46 0%, #066030 100%);
+  padding: 80px 0;
+  color: #fff;
+  overflow: hidden;
+}
+
+.curso-hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.15), transparent 45%);
+}
+
+.curso-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.curso-hero .badge {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #d5ffe2;
+  border-radius: 999px;
+  letter-spacing: 0.15em;
+}
+
+.curso-hero .label {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #c9ffd8;
+  letter-spacing: 0.04em;
+}
+
+.logo-principal {
+  max-width: 320px;
+  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.45));
+}
+
+.info-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 25px 60px rgba(6, 96, 48, 0.12);
+  border: 1px solid rgba(6, 96, 48, 0.08);
+}
+
+.info-card h3 {
+  color: #0a7a3a;
+  font-weight: 700;
+}
+
+.info-card ul {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+.info-card ul li {
+  margin-bottom: 0.45rem;
+  line-height: 1.5;
+}
+
+.info-card.destaque {
+  background: linear-gradient(160deg, rgba(14, 194, 84, 0.1), rgba(6, 96, 48, 0.05));
+}
+
+.beneficio-item {
+  border-radius: 16px;
+  background: rgba(14, 194, 84, 0.08);
+  border: 1px solid rgba(14, 194, 84, 0.25);
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.beneficio-item i {
+  color: #0a7a3a;
+  font-size: 1.25rem;
+}
+
+.parceiros-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.parceiros-lista li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.parceiros-lista li::before {
+  content: '•';
+  color: #0a7a3a;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.parceiros-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.parceiro {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.logo-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(6, 96, 48, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-circle img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.cta-final {
+  margin-top: 80px;
+  padding: 60px 0;
+  background: linear-gradient(120deg, rgba(14, 194, 84, 0.15), rgba(6, 96, 48, 0.25));
+  color: #033219;
+}
+
+.logo-cta {
+  width: 120px;
+}
+
+@media (max-width: 992px) {
+  .logo-principal {
+    margin-top: 32px;
+  }
+
+  .curso-hero {
+    text-align: center;
+  }
+
+  .curso-hero .d-flex {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
