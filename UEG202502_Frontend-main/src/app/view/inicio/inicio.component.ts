@@ -56,4 +56,12 @@ export class InicioComponent implements OnInit {
     });
   }
 
+  // Helper para exibir os cursos de um aluno como string
+  obterCursosAsString(aluno: Aluno): string {
+    if (!aluno.cursos || aluno.cursos.length === 0) {
+      return '-';
+    }
+    return aluno.cursos.map(c => c.nome).join(', ');
+  }
+
 }

@@ -44,7 +44,7 @@
         <tr>
           <th>#</th>
           <th>Nome</th>
-          <th>Curso</th>
+          <th>Turma (Turno)</th>
           <th>Data Matrícula</th>
           <th>Mensalidade</th>
           <th>Semestre</th>
@@ -58,7 +58,14 @@
         <tr *ngFor="let aluno of alunosFiltrados">
           <td>{{aluno.codigo}}</td>
           <td>{{aluno.nome}}</td>
-          <td>{{aluno.curso}}</td>
+          <td>
+            <span class="badge bg-info" *ngIf="aluno.turma?.turno; else semTurma">
+              {{ aluno.turma?.turno }}
+            </span>
+            <ng-template #semTurma>
+              <span class="text-muted">-</span>
+            </ng-template>
+          </td>
           <td>{{aluno.dataMatricula | date: 'dd/MM/yyyy'}}</td>
           <td>{{aluno.mensalidade | currency:'BRL'}}</td>
           <td>
@@ -69,13 +76,15 @@
               {{aluno.bolsista ? 'Sim' : 'Não'}}
             </span>
           </td>
-          <td class="d-flex gap-2">
-            <button class="btn btn-sm btn-outline-warning" (click)="editar(aluno.codigo)" title="Editar">
-              <i class="bi bi-pencil"></i>
-            </button>
-            <button class="btn btn-sm btn-outline-danger" (click)="excluir(aluno.codigo)" title="Excluir">
-              <i class="bi bi-trash"></i>
-            </button>
+          <td>
+            <div class="acoes-container">
+              <button class="btn-acao btn-editar" (click)="editar(aluno.codigo)" title="Editar">
+                Editar
+              </button>
+              <button class="btn-acao btn-excluir" (click)="excluir(aluno.codigo)" title="Excluir">
+                Excluir
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>

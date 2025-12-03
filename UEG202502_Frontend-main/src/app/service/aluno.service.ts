@@ -8,7 +8,7 @@ import { Aluno } from '../model/aluno';
 })
 export class AlunoService {
 
-  private url = "http://localhost:8080/caluno/aluno";
+  private url = "http://localhost:8080/alunos";
 
   constructor(private httpClient : HttpClient) { }
 
@@ -23,15 +23,30 @@ export class AlunoService {
   }
 
   alterarAluno(codigo: number, aluno: Aluno): Observable<object>{
-    return this.httpClient.put(`${this.url}/${codigo}`, aluno);
+    const codigoNum = Number(codigo);
+    if (isNaN(codigoNum) || codigoNum <= 0) {
+      throw new Error('Código do aluno inválido');
+    }
+    return this.httpClient.put(`${this.url}/${codigoNum}`, aluno);
   }
 
   excluirAluno(codigo: number): Observable<Object>{
-    return this.httpClient.delete(`${this.url}/${codigo}`);
+    const codigoNum = Number(codigo);
+    if (isNaN(codigoNum) || codigoNum <= 0) {
+      throw new Error('Código do aluno inválido');
+    }
+    return this.httpClient.delete(`${this.url}/${codigoNum}`);
   }
 
   consultarAluno(codigo: number): Observable<Aluno>{
-    return this.httpClient.get<Aluno>(`${this.url}/${codigo}`);
+    // Garantir que o código seja um número válido
+    const codigoNum = Number(codigo);
+    if (isNaN(codigoNum) || codigoNum <= 0) {
+      throw new Error('Código do aluno inválido');
+    }
+    // Construir URL corretamente com barra
+    const urlCompleta = `${this.url}/${codigoNum}`;
+    return this.httpClient.get<Aluno>(urlCompleta);
   }
 
 }

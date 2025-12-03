@@ -18,16 +18,22 @@
       </div>
     </div>
 
-    <div class="col-md-4">
-      <label class="form-label">Curso</label>
-      <select class="form-select" formControlName="curso" required>
-        <option value="">Selecione um curso</option>
-        <option *ngFor="let curso of cursosDisponiveis" [value]="curso">
-          {{ curso }}
+    <div class="col-md-6">
+      <label class="form-label">Turma</label>
+      <select class="form-select" formControlName="turmaId" required>
+        <option value="">Selecione uma turma</option>
+        <option *ngFor="let turma of turmasDisponiveis" [value]="turma.id">
+          {{ getDescricaoTurma(turma) }}
         </option>
       </select>
-      <div *ngIf="form.get('curso')?.invalid && form.get('curso')?.touched" class="text-danger">
-        <small *ngIf="form.get('curso')?.errors?.['required']">Curso é obrigatório</small>
+      <div *ngIf="form.get('turmaId')?.invalid && form.get('turmaId')?.touched" class="text-danger">
+        <small *ngIf="form.get('turmaId')?.errors?.['required']">Selecione uma turma anexada</small>
+      </div>
+      <small class="text-muted">
+        Selecione uma turma que foi anexada pelo gestor. Limite: 20 alunos por turma.
+      </small>
+      <div *ngIf="turmasDisponiveis.length === 0" class="alert alert-warning mt-2">
+        <small>Nenhuma turma disponível. O gestor deve anexar turmas primeiro.</small>
       </div>
     </div>
 

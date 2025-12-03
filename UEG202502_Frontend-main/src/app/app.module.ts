@@ -12,6 +12,7 @@ import { InicioComponent } from './view/inicio/inicio.component';
 import { AlunoAlteraComponent } from './view/aluno-altera/aluno-altera.component';
 import { AlunoConsultaComponent } from './view/aluno-consulta/aluno-consulta.component';
 import { AlunoInsereComponent } from './view/aluno-insere/aluno-insere.component';
+import { CursoMestreComponent } from './view/curso-mestre/curso-mestre.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AlunoInsereComponent } from './view/aluno-insere/aluno-insere.component
     FormsModule,
     // Importar componentes standalone
     AlunoListaComponent,
-    InicioComponent
+    InicioComponent,
+    CursoMestreComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

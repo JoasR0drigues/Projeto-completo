@@ -39,3 +39,4 @@ export class CursoDetalheComponent implements OnInit, OnDestroy {
   }
 }
 
+

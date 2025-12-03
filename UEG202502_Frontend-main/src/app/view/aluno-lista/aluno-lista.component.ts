@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Aluno } from '../../model/aluno';
@@ -25,6 +25,7 @@ export class AlunoListaComponent implements OnInit {
   filtroCurso = '';
   filtroSemestre = '';
   filtroBolsista = '';
+  filtroTurmaId?: number;
 
   // Listas para filtros
   cursos: string[] = CURSOS_SUKATECH;
@@ -37,9 +38,16 @@ export class AlunoListaComponent implements OnInit {
 
   get cursosUnicos(): number {
     const cursosCatalogo = new Set(CURSOS_SUKATECH);
-    const cursosNaBase = new Set(
-      this.alunos.map(a => a.curso).filter(curso => cursosCatalogo.has(curso))
-    );
+    const cursosNaBase = new Set<string>();
+
+    this.alunos.forEach(a => {
+      a.cursos?.forEach(c => {
+        if (cursosCatalogo.has(c.nome)) {
+          cursosNaBase.add(c.nome);
+        }
+      });
+    });
+
     return cursosNaBase.size;
   }
 
@@ -51,11 +59,18 @@ export class AlunoListaComponent implements OnInit {
 
   constructor(
     private service: AlunoService, 
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ){}
 
   ngOnInit(): void {
-    this.carregar();
+    // Verificar se há filtro por turma nos query params
+    this.route.queryParams.subscribe(params => {
+      if (params['turmaId']) {
+        this.filtroTurmaId = Number(params['turmaId']);
+      }
+      this.carregar();
+    });
   }
 
   carregar(){
@@ -65,8 +80,9 @@ export class AlunoListaComponent implements OnInit {
     this.service.listarAlunos().subscribe({
       next: data => { 
         this.alunos = data; 
-        this.alunosFiltrados = [...data];
         this.extrairCursos();
+        // Aplicar filtros após carregar (incluindo filtro por turma se houver)
+        this.aplicarFiltros();
         this.carregando = false; 
       },
       error: () => { 
@@ -87,15 +103,18 @@ export class AlunoListaComponent implements OnInit {
         aluno.nome.toLowerCase().includes(this.filtroNome.toLowerCase());
       
       const cursoMatch = !this.filtroCurso || 
-        aluno.curso === this.filtroCurso;
+        (aluno.cursos && aluno.cursos.some(c => c.nome === this.filtroCurso));
       
       const semestreMatch = !this.filtroSemestre || 
         aluno.semestre === Number(this.filtroSemestre);
       
       const bolsistaMatch = !this.filtroBolsista || 
         aluno.bolsista === (this.filtroBolsista === 'true');
+      
+      const turmaMatch = !this.filtroTurmaId || 
+        aluno.turma?.id === this.filtroTurmaId;
 
-      return nomeMatch && cursoMatch && semestreMatch && bolsistaMatch;
+      return nomeMatch && cursoMatch && semestreMatch && bolsistaMatch && turmaMatch;
     });
   }
 
@@ -104,6 +123,9 @@ export class AlunoListaComponent implements OnInit {
     this.filtroCurso = '';
     this.filtroSemestre = '';
     this.filtroBolsista = '';
+    this.filtroTurmaId = undefined;
+    // Remover query param da URL
+    this.router.navigate(['/alunos'], { queryParams: {} });
     this.aplicarFiltros();
   }
 
@@ -155,5 +177,13 @@ export class AlunoListaComponent implements OnInit {
       return aluno.mensalidade * (1 - percentualDesconto);
     }
     return aluno.mensalidade;
+  }
+
+  // Helper para exibir os nomes dos cursos de um aluno em forma de string
+  obterCursosAsString(aluno: Aluno): string {
+    if (!aluno.cursos || aluno.cursos.length === 0) {
+      return '-';
+    }
+    return aluno.cursos.map(c => c.nome).join(', ');
   }
 }

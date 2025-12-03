@@ -1,0 +1,135 @@
+<div class="container mt-3">
+  <div class="d-flex align-items-center justify-content-between mb-2">
+    <h2>Turmas</h2>
+    <button class="btn btn-primary" (click)="anexarTurma()">Anexar Turma</button>
+  </div>
+
+  <div *ngIf="erro" class="alert alert-danger">{{erro}}</div>
+
+  <!-- Filtros -->
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label class="form-label">Buscar por nome do aluno</label>
+      <input type="text" class="form-control" placeholder="Digite o nome do aluno..." 
+             [(ngModel)]="filtroNomeAluno" (input)="aplicarFiltros()">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Filtrar por turno</label>
+      <select class="form-select" [(ngModel)]="filtroTurno" (change)="aplicarFiltros()">
+        <option value="">Todos os turnos</option>
+        <option *ngFor="let turno of turnosDisponiveis" [value]="turno">{{turno}}</option>
+      </select>
+    </div>
+    <div class="col-md-1 d-flex align-items-end">
+      <button class="btn btn-outline-secondary" (click)="limparFiltros()" title="Limpar filtros">
+        <i class="bi bi-x-circle"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="table-responsive card p-2">
+    <table class="table table-striped table-hover align-middle">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Turno</th>
+          <th>Curso</th>
+          <th>Data Início</th>
+          <th>Data Fim</th>
+          <th>Alunos</th>
+          <th>Cursos dos Alunos</th>
+          <th>Quantidade de Alunos (Limite: 20)</th>
+          <th style="width:200px">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="carregando"><td colspan="9">Carregando...</td></tr>
+        <tr *ngIf="!carregando && turmasFiltradas.length === 0"><td colspan="9">Sem registros</td></tr>
+        <tr *ngFor="let turma of turmasFiltradas">
+          <td>{{turma.id}}</td>
+          <td>
+            <span class="badge bg-info">{{turma.turno}}</span>
+          </td>
+          <td>
+            <div *ngIf="getCursosDaTurma(turma).length > 0" class="cursos-turma-lista">
+              <span *ngFor="let curso of getCursosDaTurma(turma)" class="badge bg-primary me-1 mb-1">
+                {{ curso.nome }}
+              </span>
+            </div>
+            <span *ngIf="getCursosDaTurma(turma).length === 0" class="text-muted">-</span>
+          </td>
+          <td>
+            <span *ngIf="turma.dataInicio">{{ turma.dataInicio | date:'dd/MM/yyyy' }}</span>
+            <span *ngIf="!turma.dataInicio" class="text-muted">-</span>
+          </td>
+          <td>
+            <span *ngIf="turma.dataFim">{{ turma.dataFim | date:'dd/MM/yyyy' }}</span>
+            <span *ngIf="!turma.dataFim" class="text-muted">-</span>
+          </td>
+          <td>
+            <div *ngIf="getAlunosDaTurma(turma.id).length > 0" class="alunos-lista">
+              <span *ngFor="let aluno of getAlunosDaTurma(turma.id); let last = last" class="badge bg-secondary me-1 mb-1">
+                {{ aluno.nome }}
+              </span>
+            </div>
+            <span *ngIf="getAlunosDaTurma(turma.id).length === 0" class="text-muted">-</span>
+          </td>
+          <td>
+            <div *ngIf="getCursosDosAlunos(turma.id).length > 0" class="cursos-lista">
+              <span *ngFor="let curso of getCursosDosAlunos(turma.id); let last = last" class="badge bg-info me-1 mb-1">
+                {{ curso }}
+              </span>
+            </div>
+            <span *ngIf="getCursosDosAlunos(turma.id).length === 0" class="text-muted">-</span>
+          </td>
+          <td>
+            <span [ngClass]="{
+              'text-danger fw-bold': isTurmaNoLimite(turma.id),
+              'text-warning': getQuantidadeAlunos(turma.id) >= 15 && !isTurmaNoLimite(turma.id),
+              'text-muted': getQuantidadeAlunos(turma.id) < 15
+            }">
+              {{ getQuantidadeAlunos(turma.id) }} / {{ LIMITE_ALUNOS_POR_TURMA }} aluno(s)
+            </span>
+            <span *ngIf="isTurmaNoLimite(turma.id)" class="badge bg-danger ms-2">
+              Limite atingido!
+            </span>
+          </td>
+          <td>
+            <div class="acoes-container">
+              <button class="btn-acao btn-ver-alunos" (click)="verAlunos(turma.id)" title="Ver Alunos">
+                Ver Alunos
+              </button>
+              <button class="btn-acao btn-editar" (click)="editar(turma.id)" title="Editar">
+                Editar
+              </button>
+              <button class="btn-acao btn-excluir" (click)="excluir(turma.id)" title="Excluir">
+                Excluir
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Estatísticas -->
+  <div class="row mt-3" *ngIf="!carregando && turmas.length > 0">
+    <div class="col-md-3">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title text-primary">{{totalTurmas}}</h5>
+          <p class="card-text">Total de Turmas</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3" *ngFor="let turno of turnosDisponiveis">
+      <div class="card text-center" *ngIf="turmasPorTurno[turno]">
+        <div class="card-body">
+          <h5 class="card-title text-info">{{turmasPorTurno[turno]}}</h5>
+          <p class="card-text">{{turno}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

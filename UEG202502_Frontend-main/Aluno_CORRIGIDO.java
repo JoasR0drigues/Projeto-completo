@@ -17,26 +17,27 @@ public class Aluno {
 
     @ManyToOne
     @JoinColumn(name = "id_turma", referencedColumnName = "id")
-    private Turma turma; 
+    private Turma turma; // Relacionamento com Turma
 
     @ManyToMany
     @JoinTable(
-        name = "matricula", 
-        joinColumns = @JoinColumn(name = "id_aluno"),  
-        inverseJoinColumns = @JoinColumn(name = "id_curso") 
+        name = "matricula",  // Tabela intermediária para Turma e Curso
+        joinColumns = @JoinColumn(name = "id_aluno"),  // FK para Aluno
+        inverseJoinColumns = @JoinColumn(name = "id_curso")  // FK para Curso
     )
-    private List<Curso> cursos; 
+    private List<Curso> cursos; // Lista de cursos do aluno
+
     @Column(name = "data_matricula")
     private Date dataMatricula;
 
     @Column(name = "mensalidade")
-    private Double mensalidade;  
+    private Double mensalidade;  // ✅ CORRIGIDO: double → Double
 
     @Column(name = "semestre")
-    private Integer semestre;  
+    private Integer semestre;  // ✅ CORRIGIDO: int → Integer
 
     @Column(name = "bolsista")
-    private Boolean bolsista;  
+    private Boolean bolsista;  // ✅ Já estava correto
 
     // Getters e Setters
     public Long getCodigo() {
@@ -79,27 +80,28 @@ public class Aluno {
         this.dataMatricula = dataMatricula;
     }
 
-    public Double getMensalidade() {  
+    public Double getMensalidade() {  // ✅ CORRIGIDO: double → Double
         return mensalidade;
     }
 
-    public void setMensalidade(Double mensalidade) {  
+    public void setMensalidade(Double mensalidade) {  // ✅ CORRIGIDO: double → Double
         this.mensalidade = mensalidade;
     }
 
-    public Integer getSemestre() {  
+    public Integer getSemestre() {  // ✅ CORRIGIDO: int → Integer
         return semestre;
     }
 
-    public void setSemestre(Integer semestre) {  
+    public void setSemestre(Integer semestre) {  // ✅ CORRIGIDO: int → Integer
         this.semestre = semestre;
     }
 
-    public Boolean getBolsista() {  
+    public Boolean getBolsista() {  // ✅ CORRIGIDO: boolean → Boolean (mudei de isBolsista para getBolsista)
         return bolsista;
     }
 
-    public void setBolsista(Boolean bolsista) {  
+    public void setBolsista(Boolean bolsista) {  // ✅ CORRIGIDO: boolean → Boolean
         this.bolsista = bolsista;
     }
 }
+

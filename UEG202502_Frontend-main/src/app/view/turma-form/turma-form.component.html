@@ -1,0 +1,61 @@
+<div class="container mt-3">
+  <h2>{{ titulo }}</h2>
+  <div *ngIf="erro" class="alert alert-danger mt-2">{{erro}}</div>
+
+  <form [formGroup]="form" (ngSubmit)="salvar()" class="row g-3 mt-2">
+    <div class="col-md-6">
+      <label class="form-label">Curso</label>
+      <select class="form-select" formControlName="cursoSlug" required>
+        <option value="">Selecione um curso</option>
+        <option *ngFor="let curso of cursosDisponiveis" [value]="curso.slug">
+          {{ curso.titulo }} ({{ curso.cargaHoraria }})
+        </option>
+      </select>
+      <div *ngIf="temErro('cursoSlug')" class="text-danger">
+        <small>{{ getMensagemErro('cursoSlug') }}</small>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Turno</label>
+      <select class="form-select" formControlName="turno" required>
+        <option value="">Selecione um turno</option>
+        <option *ngFor="let turno of turnosDisponiveis" [value]="turno">
+          {{ turno }}
+        </option>
+      </select>
+      <div *ngIf="temErro('turno')" class="text-danger">
+        <small>{{ getMensagemErro('turno') }}</small>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Data de Início</label>
+      <input type="date" class="form-control" formControlName="dataInicio" required>
+      <div *ngIf="temErro('dataInicio')" class="text-danger">
+        <small>{{ getMensagemErro('dataInicio') }}</small>
+      </div>
+      <small class="text-muted">A data de fim será calculada automaticamente baseada na carga horária do curso.</small>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Data de Fim (Calculada)</label>
+      <input type="date" class="form-control" formControlName="dataFim" [readonly]="true">
+      <small class="text-muted">
+        Calculada automaticamente considerando:
+        <br>• Matutino/Vespertino: 4 horas por dia
+        <br>• Noturno: 3 horas por dia
+        <br>• Apenas dias úteis (segunda a sexta)
+      </small>
+    </div>
+
+    <div class="col-12 d-flex gap-2">
+      <button class="btn btn-success" [disabled]="salvando || form.invalid">
+        <span *ngIf="salvando" class="spinner-border spinner-border-sm me-2"></span>
+        {{ salvando ? 'Salvando...' : (idEdicao ? 'Atualizar' : 'Anexar Turma') }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="cancelar()" [disabled]="salvando">Cancelar</button>
+    </div>
+  </form>
+</div>
+

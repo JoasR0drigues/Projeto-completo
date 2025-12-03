@@ -25,12 +25,19 @@ export class AlunoConsultaComponent implements OnInit {
   }
 
   consultarAluno(){
-    this.codigo = this.route.snapshot.params['codigo'];
+    const codigoParam = this.route.snapshot.params['codigo'];
+    this.codigo = codigoParam ? Number(codigoParam) : 0;
     this.aluno = new Aluno();
-    this.alunoService.consultarAluno(this.codigo).subscribe(data => {
-      this.aluno = data;
-    });
-
+    if (this.codigo > 0) {
+      this.alunoService.consultarAluno(this.codigo).subscribe({
+        next: (data) => {
+          this.aluno = data;
+        },
+        error: (error) => {
+          console.error('Erro ao consultar aluno:', error);
+        }
+      });
+    }
   }
 
 }

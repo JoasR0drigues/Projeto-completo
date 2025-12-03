@@ -8,12 +8,15 @@
           <p class="lead mb-4">
             Aprimore o acompanhamento de turmas e mantenha os dados dos alunos.
           </p>
-          <div class="d-flex gap-3">
+          <div class="d-flex gap-3 flex-wrap">
             <button class="btn btn-light btn-lg" routerLink="/alunos">
               <i class="bi bi-people-fill me-2"></i>Ver Alunos
             </button>
             <button class="btn btn-outline-light btn-lg" routerLink="/alunos/novo">
               <i class="bi bi-person-plus-fill me-2"></i>Novo Aluno
+            </button>
+            <button class="btn btn-success btn-lg" routerLink="/cursos-mestre">
+              <i class="bi bi-diagram-3-fill me-2"></i>Mestre/Detalhe de Cursos
             </button>
           </div>
         </div>
@@ -161,7 +164,9 @@
                 {{ aluno.bolsista ? 'Bolsista' : 'Regular' }}
               </span>
             </div>
-            <p class="card-text text-muted small mb-2">{{ aluno.curso }}</p>
+            <p class="card-text text-muted small mb-2">
+              {{ obterCursosAsString(aluno) }}
+            </p>
             <p class="card-text small mb-2">
               <i class="bi bi-calendar-event me-1"></i>
               {{ aluno.dataMatricula | date:'dd/MM/yyyy' }}

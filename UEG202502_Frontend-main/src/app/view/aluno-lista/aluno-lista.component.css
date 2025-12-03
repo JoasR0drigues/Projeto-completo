@@ -111,6 +111,63 @@
 
 .btn-outline-secondary:hover {
   background-color: #6c757d;
+}
+
+/* Container para os botões de ação */
+.acoes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: stretch;
+  min-width: 100px;
+}
+
+/* Estilo base para os botões de ação */
+.btn-acao {
+  background-color: #5DADE2; /* Azul claro */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Efeito hover */
+.btn-acao:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Efeito active */
+.btn-acao:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Botão Editar - Amarelo claro */
+.btn-editar {
+  background-color: #F7DC6F;
+  color: #333;
+}
+
+.btn-editar:hover {
+  background-color: #F4D03F;
+}
+
+/* Botão Excluir - Vermelho claro */
+.btn-excluir {
+  background-color: #EC7063;
+}
+
+.btn-excluir:hover {
+  background-color: #E74C3C;
+}
   border-color: #6c757d;
   color: #fff;
 }

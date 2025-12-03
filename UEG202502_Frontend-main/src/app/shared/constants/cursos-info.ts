@@ -123,3 +123,4 @@ export const CURSOS_INFO_MAP: Record<string, CursoInfo> = CURSOS_INFO.reduce(
   {}
 );
 
+

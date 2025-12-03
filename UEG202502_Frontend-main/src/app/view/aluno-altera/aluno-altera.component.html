@@ -21,11 +21,19 @@
 
         <div class="form-group row">
             <div class="col-4">
-                <label>Curso</label>
-                <select class="form-control" id="curso" name="curso" [(ngModel)]="aluno.curso">
-                    <option value="" disabled [selected]="!aluno.curso">Selecione um curso</option>
-                    <option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</option>
+                <label>Turma</label>
+                <select class="form-control" id="turmaId" name="turmaId" 
+                        [(ngModel)]="turmaIdSelecionada"
+                        (ngModelChange)="onTurmaSelecionada()">
+                    <option [value]="undefined">Selecione uma turma</option>
+                    <option *ngFor="let turma of turmasDisponiveis" [value]="turma.id">
+                        {{ getDescricaoTurma(turma) }}
+                    </option>
                 </select>
+                <small class="text-muted">Selecione uma turma anexada pelo gestor</small>
+                <div *ngIf="turmasDisponiveis.length === 0" class="alert alert-warning mt-2">
+                    <small>Nenhuma turma disponível. O gestor deve anexar turmas primeiro.</small>
+                </div>
             </div>
         </div>
 
